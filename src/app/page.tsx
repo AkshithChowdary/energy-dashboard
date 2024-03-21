@@ -12,7 +12,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Line } from 'react-chartjs-2';
 import ConnectedCircles from '@/components/ConnectedCircles';
-import FileUploadForm from '@/components/FileUploadForm';
+
 // interface DeviceState {
 //   deviceId: number;
 //   realStates: number[];
@@ -319,10 +319,10 @@ export default function Home() {
 //   );
 // };
 
-const [selectedDate, setSelectedDate] = useState(null);
+const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 const [showDetails, setShowDetails] = useState(false);
 
-const handleDateChange = (date) => {
+const handleDateChange = (date: Date | null) => {
   setSelectedDate(date);
   setShowDetails(true); // Show details when date changes
 };
