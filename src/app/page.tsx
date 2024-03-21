@@ -12,6 +12,8 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Line } from 'react-chartjs-2';
 import ConnectedCircles from '@/components/ConnectedCircles';
+import { useTranslation } from 'react-i18next';
+import Natural from '@/components/Natural';
 
 // interface DeviceState {
 //   deviceId: number;
@@ -197,26 +199,95 @@ export default function Home() {
     // Add more rows as needed
   ];
 
+  // const generatePDF = (canvas: HTMLCanvasElement | null) => {
+  //   const doc = new jsPDF();
+
+  //   autoTable(doc, { styles: { fontSize: 10 } });
+
+  //   (doc as any).autoTable({
+  //     head: [tableData[0]],
+  //     body: tableData.slice(1),
+  //     startY: 20,
+  //   });
+
+  //   if (canvas && canvas instanceof HTMLCanvasElement) {
+  //     const canvasImageData = canvas.toDataURL('image/jpeg', 1.0);
+  //     const canvasImageHeight = (canvas.height * 180) / canvas.width;
+  //     const canvasImageWidth = 180;
+  //     (doc as any).addImage(canvasImageData, 'JPEG', 15, (doc as any).autoTableEndPosY() + 10, canvasImageWidth, canvasImageHeight);
+  //   }
+
+  //   doc.save('action_table.pdf');
+  // };
+
   const generatePDF = (canvas: HTMLCanvasElement | null) => {
     const doc = new jsPDF();
-
     autoTable(doc, { styles: { fontSize: 10 } });
-
+  
+    // Generate the instructions
+    const instructions = [];
+  
+    for (let i = 1; i < tableData.length; i++) {
+      const [timestamp, hvac, evCharger, production1] = tableData[i];
+      const instructionLine = `At ${timestamp}, you should:`;
+  
+      if (hvac === 'On') {
+        instructions.push(`${instructionLine} Turn on the HVAC system.`);
+      } else {
+        instructions.push(`${instructionLine} Turn off the HVAC system.`);
+      }
+  
+      if (evCharger === 'On') {
+        instructions.push(`${instructionLine} Turn on the EV charger.`);
+      } else {
+        instructions.push(`${instructionLine} Turn off the EV charger.`);
+      }
+  
+      if (production1 === 'On') {
+        instructions.push(`${instructionLine} Start Production1.`);
+      } else {
+        instructions.push(`${instructionLine} Stop Production1.`);
+      }
+    }
+  
+    // Add the instructions to the PDF
+    doc.setFontSize(12);
+    doc.text('Instructions (English):', 15, 20);
+    doc.setFontSize(10);
+    const instructionsText = instructions.join('\n');
+    const instructionsSplit = doc.splitTextToSize(instructionsText, 180);
+    const instructionsHeight = doc.getTextDimensions(instructionsSplit).h;
+    doc.text(instructionsSplit, 15, 25);
+  
+    // Add the table to the PDF with a gap after the instructions
+    const tableStartY = 25 + instructionsHeight + 10; // Add a gap of 10 units
     (doc as any).autoTable({
       head: [tableData[0]],
       body: tableData.slice(1),
-      startY: 20,
+      startY: tableStartY,
     });
-
+  
+    // Add the canvas image to the PDF
     if (canvas && canvas instanceof HTMLCanvasElement) {
       const canvasImageData = canvas.toDataURL('image/jpeg', 1.0);
       const canvasImageHeight = (canvas.height * 180) / canvas.width;
       const canvasImageWidth = 180;
-      (doc as any).addImage(canvasImageData, 'JPEG', 15, (doc as any).autoTableEndPosY() + 10, canvasImageWidth, canvasImageHeight);
+      (doc as any).addImage(
+        canvasImageData,
+        'JPEG',
+        15,
+        (doc as any).autoTableEndPosY() + 10,
+        canvasImageWidth,
+        canvasImageHeight
+      );
     }
-
+  
     doc.save('action_table.pdf');
   };
+
+
+
+
 
   const renderChartOnCanvas = (canvas: HTMLCanvasElement) => {
     const ctx = canvas.getContext('2d');
@@ -364,12 +435,39 @@ const renderDetails = () => {
 };
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return (
     <>
       <div className="flex flex-col min-h-screen bg-gray-100">
-        <nav className="text-5xl font-bold text-white text-center bg-black p-8 shadow-lg z-50 rounded-md w-full">
-          BQP Energy Cost Optimizer
-        </nav>
+      <nav className="text-5xl font-bold text-white text-center bg-black p-8 shadow-lg z-50 rounded-md w-full relative">
+        <a href="https://www.bosonqpsi.com/" className="absolute left-8 top-2 ml-4 mt-0 ">
+          <img src="https://static.wixstatic.com/media/282843_46ae3b10c491466e85f0a77981e18c2f~mv2.jpeg/v1/fill/w_116,h_115,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/gray%20border%20logo.jpeg" alt="Company Logo" className="w-32 h-32 inline-block" />
+        </a>
+        <span className="ml-4 text-center">QASELM</span> {/* Adjusted the margin here */}
+        <p className="text-xl text-center mt-4">
+          <span className="block">Powered by <span className="font-bold text-cyan-600">BQP™</span></span>
+        </p>
+      </nav>
+
+
+
         
         <ConnectedCircles/>
 
@@ -383,10 +481,10 @@ const renderDetails = () => {
               <div className="h-96">
                 <LineChart data={chartData} />
               </div>
-              <div className="relative z-10 shadow-md p-4">
-                <h1 className="text-3xl font-bold mb-4">Device States</h1>
+              {/* <div className="relative z-10 shadow-md p-4">
+                <h1 className="text-3xl font-bold mb-4">Device States</h1> */}
                 {/* <DeviceChart deviceStates={deviceStates} /> */}
-              </div>
+              {/* </div> */}
               <div className="bg-white shadow-md rounded-lg p-6">
                 <h4 className="text-center font-bold text-gray-700 text-lg mb-4">Analytics</h4>
                 <table className="w-full border-collapse">
@@ -495,6 +593,13 @@ const renderDetails = () => {
         </div>
       )}
     </div>
+
+
+
+                <Natural />
+
+
+
             <div className="flex justify-end mt-4">
               <button
                 className="py-2 px-4 bg-green-600 hover:bg-green-700 text-white rounded-md shadow-md"
