@@ -10,7 +10,7 @@ const FooterDown = () => {
           <p className="text-sm mb-4 md:mb-0">
             &copy; 2020-24 | BosonQ Psi Corp
           </p>
-          <div className="flex space-x-4 mb-4 md:mb-0">
+          {/* <div className="flex space-x-4 mb-4 md:mb-0">
             <a href="https://twitter.com" target="_blank" rel="noreferrer">
               <Image src="" alt="Twitter" width={32} height={32} className="filter invert" />
             </a>
@@ -23,7 +23,7 @@ const FooterDown = () => {
             <a href="https://youtube.com" target="_blank" rel="noreferrer">
               <Image src="" alt="YouTube" width={32} height={32} className="filter invert" />
             </a>
-          </div>
+          </div> */}
           <nav aria-label="Footer Navigation - Support">
             <ul className="flex flex-col md:flex-row space-x-0 md:space-x-4 space-y-2 md:space-y-0 text-sm">
               <li>
