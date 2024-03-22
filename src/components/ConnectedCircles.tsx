@@ -132,7 +132,7 @@ const ConnectedCircles = () => {
           {emailState === 'idle' && <FaCircle className="text-gray-400 text-4xl" />}
           {emailState === 'sending' && <FaCircle className="text-orange-500 text-4xl animate-pulse" />}
           {emailState === 'done' && <FaCheckCircle className="text-green-500 text-4xl" />}
-          <span className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-lg text-bold">Recommandation</span>
+          <span className="absolute -top-6 left-1/2 transform -translate-x-1/2 text-lg text-bold">Recommendation</span>
         </div>
       </div>
       <button

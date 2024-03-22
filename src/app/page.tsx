@@ -263,9 +263,6 @@ const renderDetails = () => {
           <span className="block">Powered by <span className="font-bold text-cyan-600">BQPhy®</span></span>
         </p>
       </nav>
-
-
-
         
         <ConnectedCircles/>
 
