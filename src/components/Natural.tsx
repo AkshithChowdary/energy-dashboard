@@ -57,11 +57,11 @@ const Natural = () => {
         onClick={toggleInstructionsVisibility}
         className="px-4 py-2 bg-white-750 text-black rounded-lg shadow-lg hover:bg-green-600 transition-colors duration-200"
       >
-        {instructionsVisibility ? 'Close' : 'Save IT!'}
+        {instructionsVisibility ? 'Close' : 'Generate Predictions'}
       </button>
       {instructionsVisibility && (
         <div className="mt-4">
-          <h3 className="text-lg font-bold mb-2">Instructions (English):</h3>
+          <h3 className="text-lg font-bold mb-2">Instructions:</h3>
           <pre className="bg-gray-200 p-4 rounded-md shadow-md">{instructions}</pre>
         </div>
       )}

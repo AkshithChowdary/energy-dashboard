@@ -61,7 +61,7 @@ export default function Home() {
         yAxisID: 'y' // Assign yAxisID to the main y-axis
       },
       {
-        label: 'Forecasted',
+        label: 'Forecasted Power',
         data: [
           229.46359565, 206.91686045, 231.28347173, 234.63270071, 227.73539697, 217.44990396, 248.27374189, 262.66513271, 328.65409742, 335.72700775, 353.65187765, 396.53488699, 380.51853761, 422.08662332, 418.84875601, 394.94946735, 415.44576801, 372.48706608, 363.8179518, 350.62536254, 338.36187567, 326.57185576, 325.45976163, 328.45467664, 354.31415411, 401.98037327, 431.51654907, 438.11302611, 416.80509644, 392.10610212, 500.90626954, 522.60367223, 430.48800402, 288.73045645, 314.80060417, 315.60054859, 298.15785157, 286.12203949, 277.33217025, 313.88005864, 312.5235001, 312.77869278, 325.52327058, 242.23797723, 220.15376696, 264.06711845, 228.35197312, 229.96682389
         ],
@@ -269,10 +269,11 @@ const renderDetails = () => {
         
         <ConnectedCircles/>
 
-        <div className="flex justify-between p-4 bg-white shadow-md rounded-md mt-4 z-40">
-          <div className="text-gray-700 font-bold p-4 px-32">Plant ID: 77903d8a-ba6e-4510-b1bb-d96f415f2120</div>
-          <div className="text-gray-700 font-bold p-4">Plant Name: ABB SACE BUILDING</div>
+        <div className="justify-between p-4 bg-white shadow-md rounded-md mt-4 z-40 text-center">
+        {/* <div className="text-gray-700 font-bold p-4 px-32">Plant ID: 77903d8a-ba6e-4510-b1bb-d96f415f2120</div> */}
+        <div className="text-gray-700 font-bold p-4 text-center text-xl">Plant Name: ABB Rakovski 2 Plant</div>
         </div>
+
         <div className="flex flex-col md:flex-row min-h-screen">
           <div className="w-full md:w-1/2 min-h-screen p-8">
             <div className="bg-white p-6 rounded-md shadow-md z-30 h-full">
