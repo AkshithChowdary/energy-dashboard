@@ -10,6 +10,7 @@ const tableData = [
 ];
 
 const Natural = () => {
+  const [instructionsVisibility, setInstructionsVisibility] = useState(false);
   const [instructions, setInstructions] = useState('');
 
   const generateInstructions = () => {
@@ -41,15 +42,24 @@ const Natural = () => {
     setInstructions(instructions.join('\n'));
   };
 
+  const toggleInstructionsVisibility = () => {
+    setInstructionsVisibility(!instructionsVisibility);
+    if (!instructionsVisibility) {
+      generateInstructions();
+    } else {
+      setInstructions('');
+    }
+  };
+
   return (
     <div className="flex-grow bg-white shadow-md rounded-md p-4 z-10">
       <button
-        onClick={generateInstructions}
+        onClick={toggleInstructionsVisibility}
         className="px-4 py-2 bg-white-750 text-black rounded-lg shadow-lg hover:bg-green-600 transition-colors duration-200"
       >
-        Generate Instructions
+        {instructionsVisibility ? 'Close' : 'Save IT!'}
       </button>
-      {instructions && (
+      {instructionsVisibility && (
         <div className="mt-4">
           <h3 className="text-lg font-bold mb-2">Instructions (English):</h3>
           <pre className="bg-gray-200 p-4 rounded-md shadow-md">{instructions}</pre>
